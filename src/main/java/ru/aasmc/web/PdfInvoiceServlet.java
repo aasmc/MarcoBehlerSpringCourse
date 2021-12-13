@@ -1,8 +1,13 @@
 package ru.aasmc.web;
 
-import ru.aasmc.context.Application;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.aasmc.context.PdfInvoiceApplicationConfiguration;
 import ru.aasmc.model.Invoice;
+import ru.aasmc.service.InvoiceService;
+import ru.aasmc.service.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +16,18 @@ import java.util.List;
 
 public class PdfInvoiceServlet extends HttpServlet {
 
+    private UserService userService;
+    private ObjectMapper objectMapper;
+    private InvoiceService invoiceService;
+
+    @Override
+    public void init() throws ServletException {
+        AnnotationConfigApplicationContext ctx =
+                new AnnotationConfigApplicationContext(PdfInvoiceApplicationConfiguration.class);
+        this.userService = ctx.getBean(UserService.class);
+        this.objectMapper = ctx.getBean(ObjectMapper.class);
+        this.invoiceService = ctx.getBean(InvoiceService.class);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -19,10 +36,10 @@ public class PdfInvoiceServlet extends HttpServlet {
             String userId = request.getParameter("user_id");
             Integer amount = Integer.valueOf(request.getParameter("amount"));
 
-            Invoice invoice = Application.invoiceService.create(userId, amount);
+            Invoice invoice = invoiceService.create(userId, amount);
 
             response.setContentType("application/json; charset=UTF-8");
-            String json = Application.objectMapper.writeValueAsString(invoice);
+            String json = objectMapper.writeValueAsString(invoice);
             response.getWriter().print(json);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -42,8 +59,8 @@ public class PdfInvoiceServlet extends HttpServlet {
                             "</html>");
         } else if (request.getRequestURI().equalsIgnoreCase("/invoices")) {
             response.setContentType("application/json; charset=UTF-8");
-            List<Invoice> invoices = Application.invoiceService.findAll();
-            response.getWriter().print(Application.objectMapper.writeValueAsString(invoices));
+            List<Invoice> invoices = invoiceService.findAll();
+            response.getWriter().print(objectMapper.writeValueAsString(invoices));
         }
     }
 }
