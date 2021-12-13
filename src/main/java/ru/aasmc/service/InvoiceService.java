@@ -1,13 +1,14 @@
 package ru.aasmc.service;
 
+import org.springframework.stereotype.Component;
 import ru.aasmc.model.Invoice;
 import ru.aasmc.model.User;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Component
 public class InvoiceService {
-
 
     private final UserService userService;
 
