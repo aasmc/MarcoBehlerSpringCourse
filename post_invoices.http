@@ -1,0 +1,3 @@
+POST http://localhost:8080/invoices?user_id=freddieFox&amount=50
+Accept: application/json
+Cache-Control: no-cache
