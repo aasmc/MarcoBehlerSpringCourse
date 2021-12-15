@@ -24,6 +24,10 @@ public class PdfInvoiceServlet extends HttpServlet {
     public void init() throws ServletException {
         AnnotationConfigApplicationContext ctx =
                 new AnnotationConfigApplicationContext(PdfInvoiceApplicationConfiguration.class);
+        // This line means that whenever JVM is about to stop, Spring properly
+        // shuts down its applicationContext first and also calls the @PreDestroy
+        // methods of all registered @Beans
+        ctx.registerShutdownHook();
         this.userService = ctx.getBean(UserService.class);
         this.objectMapper = ctx.getBean(ObjectMapper.class);
         this.invoiceService = ctx.getBean(InvoiceService.class);
