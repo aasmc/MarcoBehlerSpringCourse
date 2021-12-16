@@ -1,3 +1,7 @@
-POST http://localhost:8080/invoices/freddieFox/50
+POST http://localhost:8080/invoices
 Accept: application/json
-Cache-Control: no-cache
+Content-Type: application/json
+
+{   "amount": 5000,   "user_id": "someId" }
+
+###

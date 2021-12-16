@@ -1,6 +1,7 @@
 package ru.aasmc.web;
 
 import org.springframework.web.bind.annotation.*;
+import ru.aasmc.dto.InvoiceDto;
 import ru.aasmc.model.Invoice;
 import ru.aasmc.service.InvoiceService;
 
@@ -39,9 +40,9 @@ public class PdfInvoiceController {
         return invoiceService.findAll();
     }
 
-    @PostMapping("/invoices/{userId}/{amount}")
-    public Invoice createInvoice(@PathVariable String userId, @PathVariable Integer amount) {
-        return invoiceService.create(userId, amount);
+    @PostMapping("/invoices")
+    public Invoice createInvoice(@RequestBody InvoiceDto invoiceDto) {
+        return invoiceService.create(invoiceDto.getUserId(), invoiceDto.getAmount());
     }
 }
 
