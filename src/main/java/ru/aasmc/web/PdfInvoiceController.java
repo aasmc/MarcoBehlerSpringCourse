@@ -39,11 +39,8 @@ public class PdfInvoiceController {
         return invoiceService.findAll();
     }
 
-    @PostMapping("/invoices")
-    public Invoice createInvoice(
-            @RequestParam("user_id") String userId,
-            @RequestParam Integer amount
-    ) {
+    @PostMapping("/invoices/{userId}/{amount}")
+    public Invoice createInvoice(@PathVariable String userId, @PathVariable Integer amount) {
         return invoiceService.create(userId, amount);
     }
 }
