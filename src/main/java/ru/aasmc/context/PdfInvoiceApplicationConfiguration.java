@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.aasmc.ApplicationLauncher;
 
@@ -20,7 +21,6 @@ import ru.aasmc.ApplicationLauncher;
  * @ComponentScan tells Spring to scan the classpath and find all @Components in the
  * project. To allow Spring to scan the entire project and all its subdirectories
  * we need to provide basePackageClasses attribute, in our case we can specify ApplicationLauncher.class
- *
  * @EnableWbMvc ensures that Spring Web MVC gets initialized with a default configuration.
  * If we have a jackson dependency, the default configuration automatically registers a JSON
  * converter. And Spring assumes that user wants by default to receive JSON objects and not XML
@@ -39,4 +39,32 @@ public class PdfInvoiceApplicationConfiguration {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

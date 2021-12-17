@@ -1,0 +1,2 @@
+POST http://localhost:8080/invoices?user_id=someUserId&amount=39
+Accept: application/json
