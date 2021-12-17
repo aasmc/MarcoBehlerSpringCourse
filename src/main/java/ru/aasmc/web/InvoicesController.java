@@ -26,11 +26,11 @@ import java.util.List;
  */
 @RestController
 @Validated
-public class PdfInvoiceController {
+public class InvoicesController {
 
     private final InvoiceService invoiceService;
 
-    public PdfInvoiceController(InvoiceService invoiceService) {
+    public InvoicesController(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
     }
 

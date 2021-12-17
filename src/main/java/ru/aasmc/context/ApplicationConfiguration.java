@@ -33,7 +33,7 @@ import ru.aasmc.ApplicationLauncher;
 @PropertySource(value = "classpath:/application-${spring.profiles.active}.properties",
         ignoreResourceNotFound = true)
 @EnableWebMvc
-public class PdfInvoiceApplicationConfiguration {
+public class ApplicationConfiguration {
 
     @Bean
     public ObjectMapper objectMapper() {

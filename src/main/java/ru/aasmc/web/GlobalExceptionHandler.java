@@ -11,10 +11,16 @@ import javax.validation.ConstraintViolationException;
 /**
  * @RestControllerAdvice makes sure that Spring applies whatever this class
  * contains to all of @Controllers or @RestControllers that it knows. It writes JSON/XML directly
- * to the @ResponseBody
+ * to the @ResponseBody.
+ *
+ * @Rest/ControllerAdvices are not just about Spring’s validation exceptions.
+ * You can literally catch any exception, including your own business exceptions,
+ * inside an @Advice and react with an appropriate response. In that regard,
+ * they are a central, last "catch-all" barrier, before a response gets sent back
+ * to the client.
  */
 @RestControllerAdvice
-public class GlobalControllerExceptionHandler {
+public class GlobalExceptionHandler {
 
     /**
      * This method is invoked when MethodArgumentException is thrown when @RestController

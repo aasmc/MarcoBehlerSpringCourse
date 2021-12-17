@@ -7,7 +7,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import ru.aasmc.context.PdfInvoiceApplicationConfiguration;
+import ru.aasmc.context.ApplicationConfiguration;
 
 import javax.servlet.ServletContext;
 
@@ -36,7 +36,7 @@ public class ApplicationLauncher {
      */
     private static WebApplicationContext createApplicationContext(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(PdfInvoiceApplicationConfiguration.class);
+        ctx.register(ApplicationConfiguration.class);
         ctx.setServletContext(servletContext);
         // this starts the application context
         ctx.refresh();
