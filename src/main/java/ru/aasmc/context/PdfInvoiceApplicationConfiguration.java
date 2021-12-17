@@ -24,7 +24,8 @@ import ru.aasmc.ApplicationLauncher;
  * @EnableWbMvc ensures that Spring Web MVC gets initialized with a default configuration.
  * If we have a jackson dependency, the default configuration automatically registers a JSON
  * converter. And Spring assumes that user wants by default to receive JSON objects and not XML
- * objects or plain text.
+ * objects or plain text. If we have both JSON and XML converters then they are resolved according
+ * to their priority. XML has higher default priority than JSON.
  */
 @Configuration
 @ComponentScan(basePackageClasses = ApplicationLauncher.class)

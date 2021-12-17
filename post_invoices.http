@@ -2,6 +2,6 @@ POST http://localhost:8080/invoices
 Accept: application/json
 Content-Type: application/json
 
-{   "amount": 5000,   "user_id": "someId" }
+{   "amount": 15,   "user_id": "someId" }
 
 ###
