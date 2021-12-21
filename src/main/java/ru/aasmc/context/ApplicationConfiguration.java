@@ -1,10 +1,12 @@
 package ru.aasmc.context;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
@@ -12,6 +14,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import ru.aasmc.ApplicationLauncher;
+
+import javax.sql.DataSource;
 
 /**
  * Spring needs a configuration class in order to construct an [ApplicationContext].
@@ -42,6 +46,7 @@ public class ApplicationConfiguration {
     /**
      * [ThymeleafViewResolver] is used to find and render html templates, that are
      * mentioned in @Controller classes.
+     *
      * @return
      */
     @Bean
@@ -62,6 +67,7 @@ public class ApplicationConfiguration {
 
     /**
      * [SpringResourceTemplateResolver] actually finds the Thymelieaf templates.
+     *
      * @return
      */
     @Bean
@@ -80,6 +86,20 @@ public class ApplicationConfiguration {
     @Bean
     public MethodValidationPostProcessor methodValidationPostProcessor() {
         return new MethodValidationPostProcessor();
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        JdbcDataSource ds = new JdbcDataSource();
+        ds.setURL("jdbc:h2:~/myFirstH2Database;INIT=RUNSCRIPT FROM 'classpath:schema.sql'");
+        ds.setUser("sa");
+        ds.setPassword("sa");
+        return ds;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
     }
 }
 
